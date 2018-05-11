@@ -1,0 +1,67 @@
+{% extends 'base/base_user.html' %}
+{% load static %}
+{% block extraCSS %}
+    <style type="text/css">
+        .form-info {
+            border: 1px solid orange;
+            margin: 100px auto;
+            width: 30%;
+            padding: 50px;
+        }
+
+        .form-info h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .form-info .submit {
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block extraJS %}
+    <script type="text/javascript" src="{% static 'app/js/login.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <body>
+
+    <div class="container-fluid">
+        <div class="form-info">
+
+            <h2>用户登陆</h2>
+
+            <form method="post" action="{% url 'app:login' %}" onsubmit="check()">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">用户名</label>
+                    <input type="text" id="username" name="username" class="form-control" id="exampleInputEmail1"
+                           placeholder="请输入用户名">
+                    <p class="help-block">请输入6-16位用户名</p>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" id="password_login" name="password" class="form-control" placeholder="请输入密码">
+                    <p class="help-block">请输入6位以上拼音字母组合密码</p>
+                </div>
+                {% if error %}
+                    <p class="error">用户名或密码错误!</p>
+                {% endif %}
+
+
+                <div class="submit">
+                    <button type="submit" class="btn btn-primary">登陆</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    </body>
+
+{% endblock %}
+

@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <body>
+
+    <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+{#                <div class="navbar-header">#}
+{#                    <a class="navbar-brand" href="{% url 'app:userinfo' %}"></a>#}
+{#                </div>#}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'app:register' %}">注册</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'app:login' %}">登陆</a>
+                    </li>
+                    <!--<li>
+                        <a class="icon" href="#">
+                            <img width="40" height="40" class="img-circle" alt="" src="https://cs.vmovier.com/Uploads/Banner/2017/12/23/5a3d52d82724d.png" />
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href=""><span>Username</span></a>
+                    </li>-->
+                </ul>
+            </div>
+
+        </nav>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for banner in banners %}
+                    <div class="swiper-slide">
+                        <img src="{{ banner.img_url }}" alt="">
+                    </div>
+                {% endfor %}
+
+
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+
+        <ul class="nav nav-tabs child-nav">
+            <li role="presentation" class="active">
+                <a href="{% url 'app:home' %}">最新推荐</a>
+            </li>
+            {#				<li role="presentation">#}
+            {#					<a href="{% url 'app:collect' %}">收藏</a>#}
+            {#				</li>#}
+
+        </ul>
+
+
+        <ul class="movie_list">
+            {% for movie in movies %}
+                <li>
+                    <div class="movie_list_left">
+                        <a target="_blank" href="{{ movie.des }}" title="{{ movie.title }}">
+                            <img src="{{ movie.image }}"
+                                 alt="{{ movie.title }}">
+                            <div class="bottom-cover">
+                                <span class="film-time">02:48</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="movie_list_right">
+                        <h2>
+                            <a target="_blank" href="{{ movie.des }}" title="{{ movie.title }}">
+                                <span>{{ movie.title }}</span>
+                            </a>
+                        </h2>
+
+                        <div class="movie-intro">
+                            在这个倒叙的世界里，唯有一个人与众不同
+                        </div>
+                        <div class="movie-like">
+                            <span class="glyphicon glyphicon-heart" style="color: black;"></span>
+                            <span>{{ movie.time }}</span>
+                        </div>
+                    </div>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    </body>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extraCSS %}
+    <style type="text/css">
+        .movie-like span {
+            color: red;
+        }
+    </style>
+{% endblock %}
+{% block extraJS %}
+    <script type="text/javascript" src="{% static 'app/js/home_logined_collected.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <body>
+
+    <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'app:userinfo' %}">{{ user.u_name }}</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <!--<li>
+                        <a href="#">注册</a>
+                    </li>
+                    <li>
+                        <a href="#">登陆</a>
+                    </li>-->
+                    <li>
+                        <a class="icon" href="{% url 'app:userinfo' %}">
+                            <img width="40" height="40" class="img-circle" alt=""
+                                 src="/static/media/{{ user.u_icon }}"/>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'app:userinfo' %}"><span>{{ user.u_name }}</span></a>
+                        <ul class="user_list">
+                            <li><a href="{% url 'app:userinfo' %}">修改信息</a></li>
+                            <li><a href="{% url 'app:logout' %}">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for banner in banners %}
+                    <div class="swiper-slide">
+                        <img src="{{ banner.img_url }}" alt="">
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+
+        <ul class="nav nav-tabs child-nav">
+            <li role="presentation">
+                <a href="{% url 'app:logined' %}">最新推荐</a>
+            </li>
+            <li role="presentation" class="active">
+                <a href="{% url 'app:collect' %}">收藏</a>
+            </li>
+
+        </ul>
+
+
+        <ul class="movie_list">
+            {% for movie in movies %}
+                <li postid="{{ movie.postid }}">
+                    <div class="movie_list_left">
+                        <a target="_blank" href="{{ movie.des }}" title="{{ movie.title }}">
+                            <img src="{{ movie.image }}"
+                                 alt="{{ movie.title }}">
+                            <div class="bottom-cover">
+                                <span class="film-time">{{ movie.time }}</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="movie_list_right">
+                        <h2>
+                            <a target="_blank" href="{{ movie.des }}" title="{{ movie.title }}">
+                                <span>{{ movie.title }}</span>
+                            </a>
+                        </h2>
+
+                        <div class="movie-intro">
+                            在这个倒叙的世界里，唯有一个人与众不同
+                        </div>
+                        <div style="cursor: pointer;color: red" class="movie-like"
+                             postid="{{ movie.postid }}">
+                            <span class="glyphicon glyphicon-heart"></span>
+                            <span>收藏</span>
+                        </div>
+                    </div>
+                </li>
+
+            {% endfor %}
+
+
+    </div>
+
+    </body>
+
+{% endblock %}
+
